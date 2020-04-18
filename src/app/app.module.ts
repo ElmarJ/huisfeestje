@@ -1,6 +1,6 @@
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { VideoChatRoomComponent } from './video-chat-room/video-chat-room.component';
@@ -70,7 +70,8 @@ import { RoomEditorComponent } from './room-editor/room-editor.component';
     MatButtonModule,
     MatTabsModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
