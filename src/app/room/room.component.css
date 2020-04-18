@@ -1,0 +1,36 @@
+
+mat-toolbar, h1 {
+  font-family: fantasy;
+  background-color: blueviolet;
+  font-size: 40pt;
+}
+
+
+app-authenticate {
+  margin-right: 3em;
+  margin-left: auto;
+}
+main {
+  margin-top: 3em;
+  height: 100%;
+}
+mat-drawer, mat-drawer-container, mat-drawer-content {
+  background: none;
+  height: calc(100% - 100px);
+}
+
+mat-drawer {
+  background: rgba(221, 252, 108, 0.7);
+  width: 30%;
+  max-width: 25em;
+
+}
+
+#container {
+  height: 100%;
+}
+
+.visitorCount {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 12pt;
+}

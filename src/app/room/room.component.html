@@ -1,0 +1,29 @@
+<div id="container" *ngIf="room$ | async as room">
+<header><mat-toolbar class="mat-elevation-z6">
+  <button mat-icon-button (click)=toggleChat()>
+    <mat-icon>chat</mat-icon>
+  </button>
+  <h1>{{ room.title }}</h1>
+  <p class="visitorCount">👯‍♂️{{ room.visitors }} / {{ room.maxVisitors }}<span *ngIf="room.visitors >= room.maxVisitors">=> VOL!</span>👯‍♂️</p>
+  <app-room-menu [currentRoom] = "room"></app-room-menu>
+  <app-radio-player [volume] = "room.djVolume"></app-radio-player>
+  <app-authenticate></app-authenticate>
+</mat-toolbar>
+</header>
+<main>
+<mat-drawer-container>
+<mat-drawer #chatDrawer mode="side" [(opened)]="chatOpen">
+  <mat-tab-group>
+    <mat-tab label="Scorebord"><app-ranglijst></app-ranglijst></mat-tab>
+    <mat-tab label="Babbelbox"><app-chatbox></app-chatbox></mat-tab>
+  </mat-tab-group>
+</mat-drawer>
+<mat-drawer-content>
+  <app-video-chat-room [jitsiMeetRoomName]="room.jitsiRoomName"></app-video-chat-room>
+</mat-drawer-content>
+</mat-drawer-container>
+<!--
+
+ -->
+</main>
+</div>

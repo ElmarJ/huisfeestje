@@ -1,0 +1,19 @@
+{
+  "hosting": [
+    {
+      "target": "huisfeestje",
+      "public": "dist/huisfeestje",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}

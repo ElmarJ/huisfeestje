@@ -1,3 +1,4 @@
+import { RoomInfo } from './room-info';
 import { Component } from '@angular/core';
 
 @Component({

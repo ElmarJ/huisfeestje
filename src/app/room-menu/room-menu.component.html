@@ -1,0 +1,6 @@
+<nav>
+  <ul>
+      <!-- <li *ngFor="let room of roomService.getConnectedRooms"><a href="{{ room.urlName }}"><button mat-button>{{ room.title }}</button></a></li> -->
+      <li *ngFor="let room of linkedRooms$ | async"><button mat-button routerLink="/{{ room.urlName }}" disabled="{{ room.visitors >= room.maxVisitors }}">🚪👉{{ room.title }} <span *ngIf="room.visitors >= room.maxVisitors">(VOL)</span></button></li>
+    </ul>
+</nav>

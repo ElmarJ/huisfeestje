@@ -1,0 +1,38 @@
+    <div id="messages-card-container">
+
+      <!-- Messages container -->
+      <div id="messages-card">
+        <div>
+          <div id="messages">
+            <span id="message-filler"></span>
+            <div class="message-container" *ngFor="let message of messages | async">
+              <div class="spacing">
+                <div class="pic" [style.background-image]="'url(' + message.photoUrl + ')'"></div>
+              </div>
+              <div class="message">
+                <span *ngIf="message.text" [style]="message.sentiment | stylize">{{ message.text }}</span>
+                <a *ngIf="message.imageUrl" href="{{ message.imageUrl }}" target="_new"><img [src]="message.imageUrl + (message.moderated ? '&amp;moderated=1' : '')"></a>
+              </div>
+              <div class="name">{{ message.name }}</div>
+            </div>
+          </div>
+          <div *ngIf="topics"><em>Recent topics: {{ topics }}</em></div>
+          <form id="message-form" (submit)="saveMessage($event, box)">
+            <mat-form-field appearance="fill">
+              <input matInput #box type="text" id="message" autocomplete="off"
+                (keyup)="update(box.value)" (blur)="update(box.value)"
+                placeholder="Toe maar, schrijf een berichtje...">
+            </mat-form-field>
+            <button mat-icon-button id="submit" [disabled]="!value" type="submit">
+              <mat-icon>send</mat-icon>
+            </button>
+          </form>
+          <form id="image-form" action="#">
+            <input id="mediaCapture" type="file" accept="image/*,capture=camera" (change)="saveImageMessage($event)">
+            <button mat-icon-button id="submitImage" title="Add an image" (click)="onImageClick($event)">
+              <mat-icon>image</mat-icon>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>

@@ -1,0 +1,20 @@
+body {
+  background-image: url("/assets/plaatjes/deur.jfif");
+  background-color: #cccccc;
+  color: red;
+  text-align: center;
+  vertical-align: middle;
+  text-shadow: 2px 2px #000000;
+  font-size: 25pt;
+}
+h1 {
+font-size: 50pt;
+}
+nav.menu ul li {
+  display: inline;
+}
+
+ul.details {
+font-size: 12pt;
+list-style: none;
+}

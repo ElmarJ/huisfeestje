@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8">
+    <title>🚪🔒🛑⏳ Geen Feest⏳ 🛑🙄😣🤯😠🦂🐙🦅☝👎⚰</title>
+    <style>
+
+    </style>
+  </head>
+  <body>
+    <h1>DEUR DICHT</h1>
+    <p>Ja zeg, er is hier nog geen feestje, dit is niet het moment om langs te komen</p>
+
+    <h2>Wanneer wel?</h2>
+    <i><p id="demo"></p></i>
+    <ul class="details">
+      <li>📅 Datum: 18 april 2020 📅</li>
+      <li>🕘 Starttijd: 21.00 🕘</li>
+      <li>🚩 Locatie: hier🚩</li>
+      <li>👗 Dresscode: favoriete film of iets anders 👗</li>
+      <li>🏺 Kom met drank! 🏺</li>
+      <li>🎊</li>
+      <li>💻</li>
+      <li>💃</li>
+      <li>🎵</li>
+    </ul>
+<script>
+// Set the date we're counting down to
+var countDownDate = new Date("Apr 18, 2020 21:00:00").getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="demo"
+  document.getElementById("demo").innerHTML = "Nog " + days + " dagen, " + hours + " uur, "
+  + minutes + " minuten en " + seconds + " seconden, dan mag je naar binnen!!!";
+
+  // If the count down is finished, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("demo").innerHTML = "WE ZIJN BEGONNEN!";
+  }
+}, 1000);
+</script>
