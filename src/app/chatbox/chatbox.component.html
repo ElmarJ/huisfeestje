@@ -17,6 +17,7 @@
             </div>
           </div>
           <div *ngIf="topics"><em>Recent topics: {{ topics }}</em></div>
+          <div class="sendForm">
           <form id="message-form" (submit)="saveMessage($event, box)">
             <mat-form-field appearance="fill">
               <input matInput #box type="text" id="message" autocomplete="off"
@@ -33,6 +34,7 @@
               <mat-icon>image</mat-icon>
             </button>
           </form>
+        </div>
         </div>
       </div>
     </div>

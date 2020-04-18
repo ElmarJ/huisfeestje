@@ -27,12 +27,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OpdrachtenOverzichtComponent } from './opdrachten-overzicht/opdrachten-overzicht.component';
 import { RanglijstComponent } from './ranglijst/ranglijst.component';
 import { PointEditorComponent } from './point-editor/point-editor.component';
 import { RoomEditorComponent } from './room-editor/room-editor.component';
+import { RoomDescriptionViewerComponent } from './room-description-viewer/room-description-viewer.component';
+import { VoordeurComponent } from './voordeur/voordeur.component';
 
 
 @NgModule({
@@ -49,7 +52,9 @@ import { RoomEditorComponent } from './room-editor/room-editor.component';
     OpdrachtenOverzichtComponent,
     RanglijstComponent,
     PointEditorComponent,
-    RoomEditorComponent
+    RoomEditorComponent,
+    RoomDescriptionViewerComponent,
+    VoordeurComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +76,8 @@ import { RoomEditorComponent } from './room-editor/room-editor.component';
     MatTabsModule,
     MatSelectModule,
     ReactiveFormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -9,6 +9,7 @@ export class RoomInfo {
     public introText = '',
     public maxVisitors = 50,
     public visitors = 0,
-    public noVideo = false
+    public noVideo = false,
+    public opdrachten = ''
   ) { }
 }

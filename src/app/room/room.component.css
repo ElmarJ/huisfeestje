@@ -5,6 +5,9 @@ mat-toolbar, h1 {
   font-size: 40pt;
 }
 
+#messages {
+  max-height: 500px;
+}
 
 app-authenticate {
   margin-right: 3em;
@@ -16,13 +19,23 @@ main {
 }
 mat-drawer, mat-drawer-container, mat-drawer-content {
   background: none;
+}
+
+mat-drawer-container {
   height: calc(100% - 100px);
 }
 
 mat-drawer {
+  margin-bottom: 20px;
+  margin-top: 100px;
+  margin-left: 20px;
+  position: fixed;
+}
+
+mat-drawer {
   background: rgba(221, 252, 108, 0.7);
-  width: 30%;
-  max-width: 25em;
+  width: 35%;
+  max-width: 30em;
 
 }
 

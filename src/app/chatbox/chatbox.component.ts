@@ -33,7 +33,7 @@ export class ChatboxComponent {
         };
 
         // We load currently existing chat messages.
-        this.messages = this.db.list<any>('/messages', ref => ref.limitToLast(20)).valueChanges();
+        this.messages = this.db.list<any>('/messages', ref => ref.limitToLast(6)).valueChanges();
         this.messages.subscribe((messages) => {
           // Calculate list of recently discussed topics
           const topicsMap = {};

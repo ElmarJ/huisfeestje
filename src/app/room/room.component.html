@@ -13,12 +13,14 @@
 <main>
 <mat-drawer-container>
 <mat-drawer #chatDrawer mode="side" [(opened)]="chatOpen">
+  <div *ngIf="room.opdrachten != ''" label="Opdrachten" class="opdrachten"><span [innerHtml] = "room.opdrachten"></span></div>
   <mat-tab-group>
     <mat-tab label="Babbelbox"><app-chatbox></app-chatbox></mat-tab>
     <mat-tab label="Scorebord"><app-ranglijst></app-ranglijst></mat-tab>
   </mat-tab-group>
 </mat-drawer>
 <mat-drawer-content>
+  <app-room-description-viewer *ngIf="room.introText != ''" [room]="room"></app-room-description-viewer>
   <app-video-chat-room [jitsiMeetRoomName]="room.jitsiRoomName" [noVideo]="room.noVideo"></app-video-chat-room>
 </mat-drawer-content>
 </mat-drawer-container>
