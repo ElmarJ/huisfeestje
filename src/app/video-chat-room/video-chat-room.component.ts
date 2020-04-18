@@ -11,6 +11,7 @@ declare var JitsiMeetExternalAPI: any;
 })
 export class VideoChatRoomComponent implements OnInit, OnChanges {
   @Input() jitsiMeetRoomName: string;
+  @Input() noVideo = false;
   jitsiApi: any;
   constructor() { }
   ngOnChanges(changes: SimpleChanges): void {
@@ -25,6 +26,11 @@ export class VideoChatRoomComponent implements OnInit, OnChanges {
       this.jitsiApi.dispose();
     }
 
+    const toolbarButtons = ['microphone', 'fodeviceselection', 'filmstrip', 'tileview', 'settings'];
+    if(!this.noVideo) {
+      //toolbarButtons.push('camera');
+    }
+
     const domain = 'meet.jit.si';
     const options = {
         roomName: roomName,
@@ -34,6 +40,10 @@ export class VideoChatRoomComponent implements OnInit, OnChanges {
         configOverwrite: {
             enableCalendarIntegration: false,
             disableDeepLinking: true,
+            startWithVideoMuted: this.noVideo,
+            startAudioOnly: this.noVideo,
+
+
         },
         interfaceConfigOverwrite: {
             DEFAULT_REMOTE_DISPLAY_NAME: 'andere feestganger',
@@ -247,6 +257,12 @@ export class VideoChatRoomComponent implements OnInit, OnChanges {
     };
 
     this.jitsiApi = new JitsiMeetExternalAPI(domain, options);
+    if (this.noVideo) {
+      (document.querySelector('#meet') as HTMLElement).style.visibility = 'hidden';
+    }
+    else {
+      (document.querySelector('#meet') as HTMLElement).style.visibility = 'visible';
+    }
   }
 
 }
