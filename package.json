@@ -26,6 +26,7 @@
     "firebase": "^7.14.0",
     "howler": "^2.1.3",
     "howler-plugin-effect-chain": "^0.1.2",
+    "ngx-auth-firebaseui": "^0.1.2",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "tunajs": "^1.0.11",

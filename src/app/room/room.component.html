@@ -12,8 +12,9 @@
 </header>
 <main>
 <mat-drawer-container>
-<mat-drawer #chatDrawer mode="side" [(opened)]="chatOpen">
-  <div *ngIf="room.opdrachten != ''" label="Opdrachten" class="opdrachten"><span [innerHtml] = "room.opdrachten"></span></div>
+<mat-drawer *ngIf="room.urlName!='voordeur'" #chatDrawer mode="side" [(opened)]="chatOpen">
+  <div *ngIf="room.opdrachten != ''" label="Opdrachten" class="opdrachten"><p>Opdrachten (zorg voor fotobewijs of aanwezigheid van één van de jarigen):
+  </p><span [innerHtml] = "room.opdrachten"></span></div>
   <mat-tab-group>
     <mat-tab label="Babbelbox"><app-chatbox></app-chatbox></mat-tab>
     <mat-tab label="Scorebord"><app-ranglijst></app-ranglijst></mat-tab>

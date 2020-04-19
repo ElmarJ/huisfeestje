@@ -32,12 +32,12 @@ export class AuthenticateComponent implements OnInit {
   }
 
   async login() {
-    let auth = await this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    const auth = await this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
     this.currentUser = auth.user;
-    let userRef = this.db.database.ref("/users/" + this.currentUser.uid);
+    const userRef = this.db.database.ref("/users/" + this.currentUser.uid);
     userRef.child("name").set(this.currentUser.displayName);
 
-    let pointsSnapshot = await userRef.child('points').once('value');
+    const pointsSnapshot = await userRef.child('points').once('value');
     if(!pointsSnapshot.exists()) {
       userRef.child('points').set(0);
     }

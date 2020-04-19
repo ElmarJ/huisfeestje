@@ -20,7 +20,7 @@ export class RadioPlayerComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit(): void {
-    // audioPlayer.play();
+    audioPlayer.play();
     audioPlayer.volume(this.volume);
   }
 

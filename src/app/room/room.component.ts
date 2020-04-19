@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./room.component.css']
 })
 export class RoomComponent implements OnInit, AfterViewInit {
-  room$: Observable<RoomInfo>;
+  @Input() room$: Observable<RoomInfo>;
   chatOpen = true;
 
   constructor(

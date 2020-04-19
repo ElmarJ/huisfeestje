@@ -15,7 +15,6 @@ import { environment } from '../environments/environment';
 import { RoomMenuComponent } from './room-menu/room-menu.component';
 import { RoomComponent } from './room/room.component';
 import { ChatboxComponent } from './chatbox/chatbox.component';
-import { StylizePipe } from './stylize.pipe';
 import { DeurDichtComponent } from './deur-dicht/deur-dicht.component';
 import { RadioPlayerComponent } from './radio-player/radio-player.component';
 import { AuthenticateComponent } from './authenticate/authenticate.component';
@@ -45,7 +44,6 @@ import { VoordeurComponent } from './voordeur/voordeur.component';
     RoomMenuComponent,
     RoomComponent,
     ChatboxComponent,
-    StylizePipe,
     DeurDichtComponent,
     RadioPlayerComponent,
     AuthenticateComponent,

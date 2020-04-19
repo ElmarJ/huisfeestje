@@ -1,4 +1,7 @@
+import { RoomInfo } from './../room-info';
+import { RoomService } from './../room-service';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-voordeur',
@@ -6,10 +9,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./voordeur.component.css']
 })
 export class VoordeurComponent implements OnInit {
-
-  constructor() { }
-
+  public currentRoom$: Observable<RoomInfo>;
+  constructor(roomService: RoomService) {
+    this.currentRoom$ = roomService.getRoom('voordeur');
+  }
   ngOnInit(): void {
+
   }
 
 }

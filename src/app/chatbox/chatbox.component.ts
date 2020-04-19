@@ -1,3 +1,6 @@
+import { ChatMessage } from './../chat-message';
+import { SnackbarService } from './../snackbar-service';
+import { ChatService } from './../chat-service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -16,64 +19,23 @@ const PROFILE_PLACEHOLDER_IMAGE_URL = '/assets/images/profile_placeholder.png';
 export class ChatboxComponent {
   user: Observable<firebase.User>;
   currentUser: firebase.User;
-  messages: Observable<any[]>;
+  messages$ = this.db.list<ChatMessage>('/messages', ref => ref.limitToLast(6)).valueChanges();
   profilePicStyles: {};
   topics = '';
   value = '';
 
-  constructor(public db: AngularFireDatabase, public afAuth: AngularFireAuth) {
-    this.user = afAuth.authState;
-    this.user.subscribe((user: firebase.User) => {
-      console.log(user);
-      this.currentUser = user;
-
-      if (user) { // User is signed in!
-        this.profilePicStyles = {
-          'background-image':  `url(${this.currentUser.photoURL})`
-        };
-
-        // We load currently existing chat messages.
-        this.messages = this.db.list<any>('/messages', ref => ref.limitToLast(6)).valueChanges();
-        this.messages.subscribe((messages) => {
-          // Calculate list of recently discussed topics
-          const topicsMap = {};
-          const topics = [];
-          let hasEntities = false;
-          messages.forEach((message) => {
-            if (message.entities) {
-              for (let entity of message.entities) {
-                if (!topicsMap.hasOwnProperty(entity.name)) {
-                  topicsMap[entity.name] = 0
-                }
-                topicsMap[entity.name] += entity.salience;
-                hasEntities = true;
-              }
-            }
-          });
-          if (hasEntities) {
-            for (let name in topicsMap) {
-              topics.push({ name, score: topicsMap[name] });
-            }
-            topics.sort((a, b) => b.score - a.score);
-            this.topics = topics.map((topic) => topic.name).join(', ');
-          }
-
-          // Make sure new message scroll into view
+  constructor(
+    public db: AngularFireDatabase,
+    public afAuth: AngularFireAuth,
+    private chatService: ChatService,
+    private snackbarService: SnackbarService
+    ) {
+        this.messages$.subscribe((messages) => {
           setTimeout(() => {
             const messageList = document.getElementById('messages');
             messageList.scrollTop = messageList.scrollHeight;
             document.getElementById('message').focus();
           }, 500);
-        });
-
-        // We save the Firebase Messaging Device token and enable notifications.
-        this.saveMessagingDeviceToken();
-      } else { // User is signed out!
-        this.profilePicStyles = {
-          'background-image':  PROFILE_PLACEHOLDER_IMAGE_URL
-        };
-        this.topics = '';
-      }
     });
   }
 
@@ -97,83 +59,43 @@ export class ChatboxComponent {
 */
 
     return false;
-  };
-  // TODO: Refactor into text message form component
+  }
+
   saveMessage(event: any, el: HTMLInputElement) {
     event.preventDefault();
-
-    if (this.value && this.checkSignedInWithMessage()) {
-      // Add a new message entry to the Firebase Database.
-      const messages = this.db.list('/messages');
-      messages.push({
-        name: this.currentUser.displayName,
-        text: this.value,
-        photoUrl: this.currentUser.photoURL || PROFILE_PLACEHOLDER_IMAGE_URL,
-        timestamp:  firebase.database.ServerValue.TIMESTAMP
-      }).then(() => {
-        // Clear message text field and SEND button state.
-        el.value = '';
-      }, (err) => {
-        /*
-        this.snackBar.open('Error writing new message to Firebase Database.', null, {
-          duration: 5000
-        });
-        */
-        console.error(err);
-      });
-    }
+    this.chatService.addMessage(this.value);
   }
 
   // TODO: Refactor into image message form component
-  saveImageMessage(event: any) {
+  async saveImageMessage(event: any) {
     event.preventDefault();
     const file = event.target.files[0];
 
     // Clear the selection in the file picker input.
-    const imageForm = <HTMLFormElement>document.getElementById('image-form');
+    const imageForm = document.getElementById('image-form') as HTMLFormElement;
     imageForm.reset();
 
     // Check if the file is an image.
     if (!file.type.match('image.*')) {
-      /*
-      this.snackBar.open('You can only share images', null, {
-        duration: 5000
-      });
-      */
-     return;
+      this.snackbarService.sendMessage('Je mag alleen plaatjes uploaden!');
+      return;
     }
 
     // Check if the user is signed-in
-    if (this.checkSignedInWithMessage()) {
 
       // We add a message with a loading icon that will get updated with the shared image.
-      const messages = this.db.list('/messages');
-      messages.push({
-        name: this.currentUser.displayName,
+    const messages = this.db.list('/messages');
+    const data = await messages.push({
+        name: ' ',
         imageUrl: LOADING_IMAGE_URL,
-        photoUrl: this.currentUser.photoURL || PROFILE_PLACEHOLDER_IMAGE_URL
-      }).then((data) => {
-        // Upload the image to Cloud Storage.
-        const filePath = `${this.currentUser.uid}/${data.key}/${file.name}`;
-        return firebase.storage().ref(filePath).put(file)
-          .then((snapshot) => {
-            snapshot.ref.getDownloadURL().then((url) => {
-            //       dynamically load the download URL when displaying the image
-            //       message.
-            return data.update({
-              imageUrl: url
-            });
-          });
-        });
-      }).then(console.log, (err) => {
-        /*
-        this.snackBar.open('There was an error uploading a file to Cloud Storage.', null, {
-          duration: 5000
-        });
-        */
-       console.error(err);
+        photoUrl: ' '
       });
-    }
+
+    // Upload the image to Cloud Storage.
+    const filePath = `${data.key}/${file.name}`;
+    const snapshot = await firebase.storage().ref(filePath).put(file);
+    const url = await snapshot.ref.getDownloadURL();
+    data.update({ imageUrl: url });
   }
 
   // TODO: Refactor into image message form component
@@ -181,45 +103,4 @@ export class ChatboxComponent {
     event.preventDefault();
     document.getElementById('mediaCapture').click();
   }
-
-  // Saves the messaging device token to the datastore.
-  saveMessagingDeviceToken() {
-    return firebase.messaging().getToken()
-      .then((currentToken) => {
-        if (currentToken) {
-          console.log('Got FCM device token:', currentToken);
-          // Save the Device Token to the datastore.
-          firebase.database()
-            .ref('/fcmTokens')
-            .child(currentToken)
-            .set(this.currentUser.uid);
-        } else {
-          // Need to request permissions to show notifications.
-          return this.requestNotificationsPermissions();
-        }
-      }).catch((err) => {
-        /*
-        this.snackBar.open('Unable to get messaging token.', null, {
-          duration: 5000
-        });
-        */
-       console.error(err);
-      });
-  };
-
-  // Requests permissions to show notifications.
-  requestNotificationsPermissions() {
-    console.log('Requesting notifications permission...');
-    return firebase.messaging().requestPermission()
-      // Notification permission granted.
-      .then(() => this.saveMessagingDeviceToken())
-      .catch((err) => {
-        /* this.snackBar.open('Unable to get permission to notify.', null, {
-          duration: 5000
-        });
-        */
-       console.error(err);
-      });
-  };
-
 }

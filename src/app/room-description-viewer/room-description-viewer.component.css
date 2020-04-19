@@ -1,4 +1,7 @@
 mat-card {
-  margin: 15px;
-  background-color: rgba(230, 230, 230, 0.8)
+  margin: 30px;
+  background-color: rgba(230, 180, 180, 0.8)
+}
+span {
+  font-family: fantasy;
 }

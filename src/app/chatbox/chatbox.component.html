@@ -5,13 +5,13 @@
         <div>
           <div id="messages">
             <span id="message-filler"></span>
-            <div class="message-container" *ngFor="let message of messages | async">
+            <div class="message-container" *ngFor="let message of messages$ | async">
               <div class="spacing">
                 <div class="pic" [style.background-image]="'url(' + message.photoUrl + ')'"></div>
               </div>
               <div class="message">
-                <span *ngIf="message.text" [style]="message.sentiment | stylize">{{ message.text }}</span>
-                <a *ngIf="message.imageUrl" href="{{ message.imageUrl }}" target="_new"><img [src]="message.imageUrl + (message.moderated ? '&amp;moderated=1' : '')"></a>
+                <span *ngIf="message.text">{{ message.text }}</span>
+                <a *ngIf="message.imageUrl" href="{{ message.imageUrl }}" target="_new"><img [src]="message.imageUrl"></a>
               </div>
               <div class="name">{{ message.name }}</div>
             </div>
