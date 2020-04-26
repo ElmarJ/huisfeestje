@@ -1,0 +1,25 @@
+<header><mat-toolbar>Nieuwe kamer aanmaken</mat-toolbar></header>
+<mat-card *ngIf="room">
+  <mat-card-title>{{room.title }}</mat-card-title>
+  <mat-card-subtitle>/{{room.urlName}}</mat-card-subtitle>
+  <mat-card-content>
+<div class="form-container">
+  <mat-form-field>
+    <mat-label>URL (pagina-adres)</mat-label>
+    <input [(ngModel)]="room.urlName" matInput placeholder="huiskamer"/>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Naam</mat-label>
+    <input [(ngModel)]="room.title" matInput placeholder="Kamernaam"/>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Jitsi-room</mat-label>
+    <input [(ngModel)]="room.jitsiRoomName" matInput placeholder="Jitsi-room"/>
+  </mat-form-field>
+</div>
+</mat-card-content>
+<mat-card-actions>
+  <button mat-button (click)="onSave()">Opslaan</button>
+  <button mat-button (click)="onCancel()">Toch maar niet</button>
+</mat-card-actions>
+</mat-card>

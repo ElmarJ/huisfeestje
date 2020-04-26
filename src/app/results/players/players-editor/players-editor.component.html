@@ -1,0 +1,12 @@
+<mat-form-field>
+  <mat-label>Naam:</mat-label>
+  <input matInput [formControl]="newPlayerNameInput">
+</mat-form-field>
+<button (click)="onCreatePlayer()" mat-button>Toevoegen...</button>
+<nav>
+<ul>
+  <li *ngFor="let player of players$ | async"><button mat-button (click)="onSelect(player)">{{ player.name }}</button></li>
+</ul>
+</nav>
+<app-player-details-editor *ngIf="selectedPlayer" [player]="selectedPlayer"></app-player-details-editor>
+

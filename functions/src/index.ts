@@ -8,27 +8,16 @@ export const helloWorld = functions.https.onRequest((request, response) => {
 });
 
 export const onRoomChange = functions.database.ref('/users/{userId}/room').onUpdate(async (snapshot, context) => {
-// TODO: write as transaction https://firebase.google.com/docs/database/web/read-and-write#save_data_as_transactions
+  const roomsRef = admin.database().ref('rooms');
+  const oldRoomName = snapshot.before.val();
+  const newRoomName = snapshot.after.val();
 
-  const oldRoomName = <string>snapshot.before.val();
-  const newRoomName = <string>snapshot.after.val();
-  const oldRoomCountRef = admin.database().ref("/rooms/" + oldRoomName + "/visitors");
-  const newRoomCountRef = admin.database().ref("/rooms/" + newRoomName + "/visitors");
-
-  let oldRoomVisitorsCount = 1;
-  let newRoomVisitorsCount = 0;
-
-
-  const oldRoomSnapshot = await oldRoomCountRef.once('value');
-  if (oldRoomSnapshot.exists()) {
-    oldRoomVisitorsCount = oldRoomSnapshot.val();
-  }
-  await oldRoomCountRef.set(oldRoomVisitorsCount - 1);
-
-  const newRoomSnapshot = await newRoomCountRef.once('value');
-  if (newRoomSnapshot.exists()) {
-    newRoomVisitorsCount = newRoomSnapshot.val();
-  }
-
-  await newRoomCountRef.set(newRoomVisitorsCount + 1);
-});
+  return roomsRef.transaction(
+    rooms => {
+      if(rooms) {
+        rooms[oldRoomName].visitors = rooms[oldRoomName].visitors - 1;
+        rooms[newRoomName].visitors = rooms[newRoomName].visitors + 1;
+      }
+      return rooms;
+    });
+  });

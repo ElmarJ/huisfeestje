@@ -1,0 +1,30 @@
+<div class="form-container">
+
+<mat-grid-list [cols]=3>  <mat-grid-tile *ngFor="let photoUrl of attempt.photoUrls"><a href="{{photoUrl}}" target="_new"><img src="{{photoUrl}}" height="200"></a></mat-grid-tile>
+</mat-grid-list>
+<input type="file" (change)="onUploadPhoto($event)">
+<br>
+<mat-form-field class="example-chip-list">
+  <mat-chip-list #chipList aria-label="Fruit selection">
+    <mat-chip *ngFor="let participant of attempt.participants" [selectable]="false"
+             [removable]="true" (removed)="onPlayerRemove(participant)">
+      {{participant}}
+      <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+    <input placeholder="Nieuwe speler..."
+           [matChipInputFor]="chipList"
+           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+           [matChipInputAddOnBlur]="true"
+           (matChipInputTokenEnd)="onPlayerAdd($event)">
+  </mat-chip-list>
+  <mat-label>Spelers</mat-label>
+</mat-form-field>
+
+
+<mat-form-field>
+  <mat-label>Gegeven Punten</mat-label>
+  <input [(ngModel)]="attempt.awardedPoints" matInput placeholder="5"/>
+</mat-form-field>
+
+</div>
+<button mat-button (click)="onSave()">Opslaan</button>

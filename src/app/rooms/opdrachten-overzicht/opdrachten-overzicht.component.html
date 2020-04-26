@@ -1,0 +1,5 @@
+<ul>
+  <li *ngFor="let challenge of challenges$ | async">
+    <strong>{{challenge.name}}</strong>: {{challenge.description}}
+  </li>
+</ul>

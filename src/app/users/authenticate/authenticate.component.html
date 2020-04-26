@@ -1,0 +1,16 @@
+<div id="user-container">
+  <ng-container *ngIf="auth.user | async as user;else signed_out">
+    <ng-container *ngIf="!user.isAnonymous;else signed_out">
+      <div id="user-pic" style="background-image: url({{user.photoURL}})"></div>
+      <div id="user-name">{{ user.displayName }}</div>
+      <button mat-icon-button *ngIf="!user.isAnonymous" id="sign-out" (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+      </button>
+    </ng-container>
+  </ng-container>
+  <ng-template #signed_out>
+    <button mat-icon-button id="sign-in" (click)="login()">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </ng-template>
+</div>

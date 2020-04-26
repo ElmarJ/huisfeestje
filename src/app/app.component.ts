@@ -1,5 +1,5 @@
 import { SnackbarService } from './snackbar-service';
-import { ChatService } from './chat-service';
+import { ChatService } from './chat/chat-service';
 import { Component, OnInit } from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
 

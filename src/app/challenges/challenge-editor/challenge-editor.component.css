@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  flex-direction: row;
+}
+.sidemenu {
+  display: flex;
+  flex-direction: column;
+}
+app-challenge-details-editor {
+  flex-grow: 1;
+}
+
+

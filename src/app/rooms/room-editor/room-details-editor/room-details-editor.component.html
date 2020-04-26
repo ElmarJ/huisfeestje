@@ -1,0 +1,54 @@
+<mat-card *ngIf="room">
+  <mat-card-header>
+    <mat-card-title>{{room.title }}</mat-card-title>
+    <mat-card-subtitle>/{{room.urlName}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="form-container">
+      <mat-form-field *ngIf="editRoomUrl">
+        <mat-label>URL (pagina-adres)</mat-label>
+        <input [(ngModel)]="room.urlName" matInput placeholder="huiskamer" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Naam</mat-label>
+        <input [(ngModel)]="room.title" matInput placeholder="Kamernaam" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Jitsi-room</mat-label>
+        <input [(ngModel)]="room.jitsiRoomName" matInput placeholder="Jitsi-room" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Introtekst (HTML)</mat-label>
+        <textarea [(ngModel)]="room.introText" matInput matTextareaAutosize
+          placeholder="Typ hier eventueel extra informatie die bovenaan de pagina verschijnt..."></textarea>
+      </mat-form-field>
+<!--      <mat-form-field>
+        <mat-label>Opdrachten (HTML)</mat-label>
+        <textarea [(ngModel)]="room.opdrachten" matInput matTextareaAutosize
+          placeholder="Typ hier de opdrachten..."></textarea>
+      </mat-form-field>   -->
+      <mat-form-field>
+        <mat-label>Deuren</mat-label>
+        <mat-select [(ngModel)]="room.linkedRooms" multiple>
+          <mat-option *ngFor="let room of rooms$ | async" [value]="room.urlName">{{ room.title }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Background Image</mat-label>
+        <input [(ngModel)]="room.backgroundImageFilename" matInput placeholder="image.jpg" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Maximum aantal bezoekers</mat-label>
+        <input [(ngModel)]="room.maxVisitors" matInput type="number" placeholder="20" />
+      </mat-form-field>
+
+      <mat-label>DJ Volume</mat-label>
+      <mat-slider min="0" max="1" step="0.1" value="1" [(ngModel)]="room.djVolume"></mat-slider>
+
+      <mat-slide-toggle [(ngModel)]="room.noVideo">Darkroom-modus</mat-slide-toggle>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="onSave()">Opslaan</button>
+  </mat-card-actions>
+</mat-card>

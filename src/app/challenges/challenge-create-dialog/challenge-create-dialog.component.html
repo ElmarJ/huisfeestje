@@ -1,0 +1,25 @@
+<header><mat-toolbar>Nieuwe opdracht aanmaken</mat-toolbar></header>
+<mat-card *ngIf="challenge">
+  <mat-card-title>{{challenge.name }}</mat-card-title>
+  <mat-card-content>
+<div class="form-container">
+  <mat-form-field>
+    <mat-label>Naam</mat-label>
+    <input [(ngModel)]="challenge.name" matInput placeholder="Opdrachtnaam"/>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Kamer</mat-label>
+    <mat-select [(ngModel)]="challenge.room">
+      <mat-option *ngFor="let room of rooms$ | async" [value]="room.urlName">
+        {{room.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</div>
+</mat-card-content>
+<mat-card-actions>
+  <button mat-button (click)="onSave()">Opslaan</button>
+  <button mat-button (click)="onCancel()">Toch maar niet</button>
+</mat-card-actions>
+</mat-card>

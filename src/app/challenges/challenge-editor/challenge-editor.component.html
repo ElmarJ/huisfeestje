@@ -1,0 +1,10 @@
+<header><mat-toolbar>Opdrachten bewerken <button mat-icon-button (click)="onAdd()"><mat-icon>add</mat-icon></button></mat-toolbar></header>
+<div class="container">
+  <div class="sidemenu mat-elevation-z2">
+    <mat-selection-list [multiple]=false>
+      <mat-list-option *ngFor="let challenge of challenges$ | async" [class.selected]="challenge === selectedChallenge"
+        (click)="onSelect(challenge)">{{challenge.name}}</mat-list-option>
+    </mat-selection-list>
+  </div>
+    <app-challenge-details-editor [challenge]="selectedChallenge"></app-challenge-details-editor>
+</div>
