@@ -3,7 +3,8 @@ import { ChallengeAttempt } from './../challenge-attempt';
 import { Component, OnInit, Input } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
-import * as firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/storage';
 import { MatChipInputEvent } from '@angular/material/chips';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 

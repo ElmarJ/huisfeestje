@@ -1,7 +1,8 @@
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Component, OnInit } from '@angular/core';
 import * as firebaseui from 'firebaseui';
-import * as firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import { MatDialogRef } from '@angular/material/dialog';
 
 

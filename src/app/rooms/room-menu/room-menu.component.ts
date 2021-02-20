@@ -22,6 +22,8 @@ export class RoomMenuComponent implements OnChanges {
   async updateRoom() {
     this.linkedRooms$ = this.roomService.getConnectedRooms(this.currentRoom);
     const user = await this.auth.currentUser;
-    this.db.database.ref('/users/' + user.uid + '/room').set(this.currentRoom.urlName);
+    if (user?.uid) {
+      this.db.database.ref('/users/' + user.uid + '/room').set(this.currentRoom.urlName);
+    }
   }
 }

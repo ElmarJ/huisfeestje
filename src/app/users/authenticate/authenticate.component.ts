@@ -2,7 +2,7 @@ import { UsersService } from '../users-service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import * as firebase from 'firebase';
+import firebase from 'firebase/app';
 import { AngularFireDatabase } from '@angular/fire/database';
 import * as firebaseui from 'firebaseui';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';

@@ -1,7 +1,7 @@
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Component, OnInit, Input } from '@angular/core';
 import { Player } from '../player';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-player-details-editor',
@@ -10,9 +10,11 @@ import { FormBuilder } from '@angular/forms';
 })
 export class PlayerDetailsEditorComponent implements OnInit {
   @Input() public player: Player;
-  playerEditForm = this.formBuilder.group(this.player);
+  playerEditForm : FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private firestore: AngularFirestore) { }
+  constructor(private formBuilder: FormBuilder, private firestore: AngularFirestore) {
+    this.playerEditForm = this.formBuilder.group(this.player);
+   }
 
   ngOnInit(): void {
   }

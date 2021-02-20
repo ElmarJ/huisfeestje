@@ -2,7 +2,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { UsersService } from '../users/users-service';
 import { AngularFireDatabase, ChildEvent } from '@angular/fire/database';
 import { Injectable } from '@angular/core';
-import * as firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/database'
 import { map } from 'rxjs/operators';
 import { ChatMessage } from './chat-message';
 
