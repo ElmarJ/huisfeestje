@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build-prod": "ng build --prod",
     "deploy": "ng build --prod && firebase deploy",
     "test": "ng test",
     "lint": "ng lint",
